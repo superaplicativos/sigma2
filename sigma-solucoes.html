@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Sigma Soluções - Consultoria Especializada em Consórcios</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:#1a1a2e;background:#fff;overflow-x:hidden}
+
+/* ─── PAGE ROUTER ─── */
+.page{display:none}.page.active{display:block}
+
+/* ─── VARIABLES ─── */
+:root{
+  --orange:#f59e0b;
+  --orange-dark:#d97706;
+  --navy:#1e3a5f;
+  --navy-dark:#0f2035;
+  --navy-mid:#1a3354;
+  --white:#fff;
+  --off:#f8f8f6;
+  --text:#111827;
+  --gray:#6b7280;
+  --border:#e5e7eb;
+  --radius:12px;
+}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;width:100%;z-index:1000;
+  background:rgba(255,255,255,0.98);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;height:64px;
+}
+.nav-logo{display:flex;align-items:center;cursor:pointer;text-decoration:none}
+.nav-logo img{height:46px;object-fit:contain}
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none}
+.nav-links a{
+  padding:8px 16px;text-decoration:none;font-size:14px;font-weight:500;
+  color:var(--text);border-radius:6px;transition:color .2s;cursor:pointer;white-space:nowrap
+}
+.nav-links a:hover,.nav-links a.active-nav{color:var(--navy)}
+.nav-links .has-dd{position:relative}
+.nav-links .has-dd>a::after{content:' ▾';font-size:10px;opacity:.6}
+.dd-menu{
+  display:none;position:absolute;top:calc(100% + 4px);left:0;
+  background:#fff;border:1px solid var(--border);border-radius:10px;
+  box-shadow:0 8px 32px rgba(0,0,0,.1);min-width:200px;overflow:hidden;z-index:999
+}
+.has-dd:hover .dd-menu{display:block}
+.dd-menu a{display:block;padding:11px 18px;font-size:13.5px;font-weight:500;color:var(--text);text-decoration:none;transition:background .15s}
+.dd-menu a:hover{background:#f9fafb;color:var(--orange)}
+.btn-nav{
+  background:var(--navy)!important;color:#fff!important;
+  padding:10px 22px!important;border-radius:8px!important;font-weight:600!important;font-size:13.5px!important
+}
+.btn-nav:hover{background:var(--navy-mid)!important}
+
+/* ─── HERO ─── */
+.hero{
+  position:relative;min-height:420px;display:flex;align-items:flex-end;
+  padding-top:64px;overflow:hidden
+}
+.hero-bg{position:absolute;inset:0;background:var(--navy-dark)}
+.hero-photo{
+  position:absolute;inset:0;background-size:cover;background-position:center top;opacity:.45
+}
+/* wave SVG bottom */
+.hero-wave{position:absolute;bottom:0;left:0;right:0;line-height:0}
+.hero-wave svg{display:block;width:100%}
+.hero-inner{
+  position:relative;z-index:1;width:100%;max-width:1200px;margin:0 auto;
+  padding:72px 40px 88px
+}
+.hero-tag{
+  display:inline-block;
+  background:rgba(245,158,11,.18);border:1px solid rgba(245,158,11,.5);
+  color:#fbbf24;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;
+  padding:5px 14px;border-radius:20px;margin-bottom:18px
+}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,4.5vw,52px);font-weight:800;color:#fff;line-height:1.15;
+  max-width:600px;margin-bottom:16px
+}
+.hero p{font-size:15px;color:rgba(255,255,255,.72);line-height:1.7;max-width:480px;margin-bottom:28px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-orange{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--orange);color:#fff;border:none;cursor:pointer;
+  padding:12px 26px;border-radius:8px;font-family:'Inter',sans-serif;
+  font-weight:600;font-size:14px;transition:background .2s;text-decoration:none
+}
+.btn-orange:hover{background:var(--orange-dark)}
+.btn-outline-white{
+  display:inline-flex;align-items:center;gap:6px;
+  background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.45);cursor:pointer;
+  padding:12px 26px;border-radius:8px;font-family:'Inter',sans-serif;
+  font-weight:600;font-size:14px;transition:border-color .2s;text-decoration:none
+}
+.btn-outline-white:hover{border-color:rgba(255,255,255,.85)}
+
+/* ─── STATS ROW ─── */
+.stats-row{
+  background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.09);
+  border-radius:var(--radius);max-width:820px;
+  display:grid;grid-template-columns:repeat(3,1fr);
+  margin:-44px auto 0;position:relative;z-index:2;overflow:hidden
+}
+.stat{padding:28px 20px;text-align:center;border-right:1px solid var(--border)}
+.stat:last-child{border-right:none}
+.stat-icon{font-size:22px;margin-bottom:8px;color:var(--orange)}
+.stat-num{font-family:'Playfair Display',serif;font-size:34px;font-weight:800;color:var(--navy)}
+.stat-lbl{font-size:12.5px;color:var(--gray);margin-top:4px;font-weight:500}
+
+/* ─── SECTIONS ─── */
+.section{padding:80px 40px}
+.container{max-width:1100px;margin:0 auto}
+.eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--orange);margin-bottom:10px}
+.sec-h2{font-family:'Playfair Display',serif;font-size:clamp(22px,3vw,38px);font-weight:800;color:var(--text);line-height:1.25;margin-bottom:14px}
+.sec-p{font-size:15px;color:var(--gray);line-height:1.75;max-width:560px}
+.bg-off{background:var(--off)}
+.bg-white{background:#fff}
+.center{text-align:center}.center .sec-p{margin:0 auto}
+
+/* ─── VIDEO ─── */
+.video-wrap{
+  max-width:760px;margin:36px auto 0;border-radius:var(--radius);overflow:hidden;
+  box-shadow:0 16px 48px rgba(0,0,0,.15);aspect-ratio:16/9;background:#000
+}
+.video-wrap iframe{width:100%;height:100%;display:block;border:none}
+
+/* ─── CLIENT LOGOS ─── */
+.clients-grid{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:32px
+}
+.client-chip{
+  background:#fff;border:1px solid var(--border);border-radius:8px;
+  padding:10px 18px;font-size:12px;font-weight:600;color:var(--gray);
+  transition:border-color .2s,color .2s
+}
+.client-chip:hover{border-color:var(--orange);color:var(--navy)}
+
+/* ─── SOLUTIONS 2x2 GRID ─── */
+.sol-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
+.sol-card{
+  border-radius:var(--radius);overflow:hidden;position:relative;
+  min-height:200px;display:flex;align-items:flex-end;cursor:pointer;
+  transition:transform .2s,box-shadow .2s
+}
+.sol-card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,.18)}
+.sol-bg-img{position:absolute;inset:0;background-size:cover;background-position:center}
+.sol-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,32,53,.95) 0%,rgba(15,32,53,.25) 100%)}
+.sol-content{position:relative;z-index:1;padding:24px;color:#fff;width:100%}
+.sol-icon{
+  width:38px;height:38px;background:rgba(245,158,11,.2);border:1px solid rgba(245,158,11,.4);
+  border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;margin-bottom:12px
+}
+.sol-card h3{font-size:16px;font-weight:700;margin-bottom:4px}
+.sol-card p{font-size:12.5px;color:rgba(255,255,255,.68);line-height:1.5}
+.sol-link{display:inline-flex;align-items:center;gap:4px;color:var(--orange);font-size:12.5px;font-weight:600;margin-top:8px}
+
+/* ─── ABOUT PREVIEW (2-col) ─── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.photo-frame{
+  position:relative;border-radius:var(--radius);overflow:hidden;
+  background:linear-gradient(145deg,#1a3050,#2a4a7a)
+}
+.photo-frame img{width:100%;height:100%;object-fit:cover;display:block}
+.badge-over{
+  position:absolute;bottom:-16px;right:-16px;
+  background:var(--orange);color:#fff;border-radius:10px;padding:18px 22px;
+  text-align:center;box-shadow:0 8px 24px rgba(245,158,11,.35)
+}
+.badge-over .bn{font-family:'Playfair Display',serif;font-size:32px;font-weight:800;display:block}
+.badge-over .bs{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.btn-outline-dark{
+  display:inline-flex;align-items:center;gap:6px;
+  background:transparent;color:var(--navy);border:1.5px solid rgba(30,58,95,.3);cursor:pointer;
+  padding:12px 26px;border-radius:8px;font-family:'Inter',sans-serif;
+  font-weight:600;font-size:14px;transition:border-color .2s
+}
+.btn-outline-dark:hover{border-color:var(--navy)}
+
+/* ─── DARK CTA ─── */
+.dark-cta{
+  background:linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 100%);
+  padding:80px 40px;text-align:center;color:#fff;position:relative;overflow:hidden
+}
+.dark-cta h2{font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,44px);font-weight:800;margin-bottom:14px}
+.dark-cta p{font-size:15.5px;color:rgba(255,255,255,.7);margin-bottom:28px;max-width:460px;margin-left:auto;margin-right:auto}
+
+/* ─── SERVICE ROWS (alternating) ─── */
+.svc-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;
+  align-items:center;padding:60px 0;border-bottom:1px solid var(--border)
+}
+.svc-row:last-of-type{border-bottom:none}
+.svc-row.rev .svc-img{order:-1}
+.svc-icon-box{
+  width:46px;height:46px;border-radius:11px;
+  background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);
+  display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px
+}
+.svc-row h3{font-family:'Playfair Display',serif;font-size:24px;font-weight:800;margin-bottom:12px}
+.svc-row p{font-size:14.5px;color:var(--gray);line-height:1.75;margin-bottom:18px}
+.btn-link{
+  display:inline-flex;align-items:center;gap:5px;font-size:14px;font-weight:600;
+  color:var(--text);cursor:pointer;border:none;background:transparent;
+  padding:0;font-family:'Inter',sans-serif
+}
+.btn-link::after{content:' →'}
+.btn-link:hover{color:var(--orange)}
+.svc-img{
+  border-radius:var(--radius);overflow:hidden;
+  background:linear-gradient(145deg,#1a3050,#2a4a7a)
+}
+.svc-img img{width:100%;height:100%;object-fit:cover;display:block;border-radius:var(--radius)}
+
+/* ─── STEPS ─── */
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.step-card{
+  background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+  padding:26px 22px;position:relative;transition:box-shadow .2s
+}
+.step-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.step-n{position:absolute;top:16px;right:16px;font-family:'Playfair Display',serif;font-size:28px;font-weight:800;color:#f3f4f6}
+.step-icon{
+  width:42px;height:42px;border-radius:10px;
+  background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);
+  display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:14px
+}
+.step-card h4{font-size:15px;font-weight:700;margin-bottom:6px}
+.step-card p{font-size:13px;color:var(--gray);line-height:1.6}
+
+/* ─── VALUES ─── */
+.vals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+.val-card{
+  background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+  padding:24px 20px;transition:box-shadow .2s,transform .2s
+}
+.val-card:hover{box-shadow:0 4px 18px rgba(0,0,0,.07);transform:translateY(-2px)}
+.val-icon{
+  width:42px;height:42px;border-radius:10px;
+  background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);
+  display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px
+}
+.val-card h4{font-size:14.5px;font-weight:700;margin-bottom:5px}
+.val-card p{font-size:13px;color:var(--gray);line-height:1.6}
+
+/* ─── AREAS ─── */
+.areas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+.area-card{
+  background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+  padding:24px 20px;transition:box-shadow .2s,transform .2s
+}
+.area-card:hover{box-shadow:0 4px 18px rgba(0,0,0,.07);transform:translateY(-2px)}
+.area-icon{
+  width:42px;height:42px;border-radius:10px;
+  background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);
+  display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px
+}
+.area-card h4{font-size:14.5px;font-weight:700;margin-bottom:5px}
+.area-card p{font-size:13px;color:var(--gray);line-height:1.6}
+
+/* ─── CEO ─── */
+.ceo-box{
+  background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+  padding:22px 26px;margin-top:20px
+}
+.ceo-name{font-weight:700;font-size:15px;margin-bottom:2px}
+.ceo-role{font-size:11px;color:var(--orange);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.ceo-bio{font-size:13px;color:var(--gray);line-height:1.7}
+
+/* ─── CHECK LIST ─── */
+.cklist{list-style:none;margin:16px 0}
+.cklist li{
+  display:flex;align-items:center;gap:10px;font-size:14px;color:var(--gray);margin-bottom:9px
+}
+.cklist li::before{
+  content:'✓';width:20px;height:20px;border-radius:50%;
+  background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.35);
+  color:var(--orange);display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;flex-shrink:0;line-height:20px;text-align:center
+}
+
+/* ─── MISSION DARK ─── */
+.mission{
+  background:linear-gradient(135deg,var(--navy-dark),var(--navy));
+  padding:80px 40px;text-align:center;color:#fff;position:relative;overflow:hidden
+}
+.mission::before{
+  content:'';position:absolute;inset:0;
+  background-size:cover;background-position:center;opacity:.12
+}
+.mission .eyebrow{color:var(--orange)}
+.mission-title{font-family:'Playfair Display',serif;font-size:clamp(40px,6vw,62px);font-weight:800;color:#fff;margin-bottom:20px}
+.mission-quote{font-size:17px;color:rgba(255,255,255,.78);line-height:1.85;max-width:680px;margin:0 auto;font-style:italic}
+
+/* ─── CONTACT ─── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:36px;align-items:start}
+.form-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:32px}
+.form-card h3{font-size:20px;font-weight:700;margin-bottom:4px}
+.form-sub{font-size:14px;color:var(--gray);margin-bottom:26px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.fg input,.fg textarea{
+  width:100%;padding:11px 15px;border:1px solid var(--border);border-radius:8px;
+  font-family:'Inter',sans-serif;font-size:14px;color:var(--text);
+  outline:none;transition:border-color .2s;background:var(--off)
+}
+.fg input:focus,.fg textarea:focus{border-color:var(--orange);background:#fff}
+.fg input::placeholder,.fg textarea::placeholder{color:#9ca3af}
+.fg textarea{height:130px;resize:vertical;margin-bottom:0}
+.info-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:26px}
+.info-card h3{font-size:15px;font-weight:700;margin-bottom:20px;text-align:center}
+.info-item{display:flex;align-items:flex-start;gap:13px;margin-bottom:16px}
+.info-ico{
+  width:38px;height:38px;border-radius:9px;flex-shrink:0;
+  background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);
+  display:flex;align-items:center;justify-content:center;font-size:16px
+}
+.info-item h4{font-size:13.5px;font-weight:700;margin-bottom:2px}
+.info-item p{font-size:13px;color:var(--gray);line-height:1.55}
+.map-frame{width:100%;height:210px;border-radius:10px;overflow:hidden;border:1px solid var(--border);margin-top:16px}
+.map-frame iframe{width:100%;height:100%;border:none;display:block}
+
+/* ─── FOOTER ─── */
+footer{background:var(--navy-dark);color:rgba(255,255,255,.58);padding:52px 40px 26px}
+.footer-inner{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;max-width:1100px;margin:0 auto;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.07)}
+.footer-brand .flogo{margin-bottom:14px}
+.footer-brand .flogo img{height:40px;object-fit:contain;filter:brightness(0) invert(1)}
+.footer-brand p{font-size:13px;line-height:1.7}
+.fcol h4{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.32);margin-bottom:14px}
+.fcol a,.fcol span{display:block;font-size:13.5px;color:rgba(255,255,255,.6);text-decoration:none;margin-bottom:8px;cursor:pointer;transition:color .2s}
+.fcol a:hover{color:var(--orange)}
+.footer-copy{max-width:1100px;margin:20px auto 0;text-align:center;font-size:12.5px}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .section,footer,.dark-cta,.mission{padding-left:20px;padding-right:20px}
+  .hero-inner{padding:64px 20px 80px}
+  .two-col,.sol-grid,.contact-grid,.footer-inner,.svc-row{grid-template-columns:1fr}
+  .steps-grid,.vals-grid,.areas-grid{grid-template-columns:1fr 1fr}
+  .stats-row{max-width:300px;grid-template-columns:1fr}
+  .stat{border-right:none;border-bottom:1px solid var(--border)}
+  .form-row{grid-template-columns:1fr}
+  .svc-row.rev .svc-img{order:0}
+}
+@media(max-width:560px){.steps-grid,.vals-grid,.areas-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainnav">
+  <a class="nav-logo" onclick="go('home')">
+    <img src="sigma-logo.png" alt="Sigma Soluções"/>
+  </a>
+  <ul class="nav-links">
+    <li><a onclick="go('home')" id="nl-home">Home</a></li>
+    <li class="has-dd">
+      <a>Serviços</a>
+      <div class="dd-menu">
+        <a onclick="go('consultoria')">Consultoria</a>
+        <a onclick="go('mentoring')">Mentoring</a>
+        <a onclick="go('servicos')">Serviços Operacionais</a>
+      </div>
+    </li>
+    <li><a onclick="go('sobre')" id="nl-sobre">Sobre Nós</a></li>
+    <li><a onclick="go('contato')" id="nl-contato" style="background:#e5e7eb;border-radius:20px;padding:6px 16px">Contato</a></li>
+    <li><a class="btn-nav" onclick="go('contato')">Fale Conosco</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════ HOME ═══════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO: city skyline at night / dusk -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-photo" style="background-image:url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80');opacity:.4"></div>
+    <div class="hero-wave">
+      <svg viewBox="0 0 1440 70" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0,35 C480,70 960,0 1440,35 L1440,70 L0,70 Z" fill="#f8f8f6"/>
+      </svg>
+    </div>
+    <div class="hero-inner">
+      <div class="hero-tag">Consultoria Especializada</div>
+      <h1>Transformando o setor de consórcios há mais de 20 anos</h1>
+      <p>Da constituição à excelência operacional. Soluções completas para administradoras de consórcios no Brasil, Peru e Colômbia.</p>
+      <div class="hero-btns">
+        <button class="btn-orange" onclick="go('contato')">Agende uma Consultoria →</button>
+        <button class="btn-outline-white" onclick="go('consultoria')">Conheça Nossas Soluções</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="bg-off" style="padding:0 40px 64px">
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-icon">🕐</div>
+        <div class="stat-num">+20</div>
+        <div class="stat-lbl">Anos de experiência</div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon">🌐</div>
+        <div class="stat-num">3</div>
+        <div class="stat-lbl">Países de atuação</div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon">🏆</div>
+        <div class="stat-num">+50</div>
+        <div class="stat-lbl">Projetos realizados</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO SECTION -->
+  <div class="section bg-white">
+    <div class="container center">
+      <p class="eyebrow">Conheça a Sigma</p>
+      <h2 class="sec-h2">Somos a Sigma</h2>
+      <p class="sec-p">Conheça um pouco mais sobre a Sigma assistindo ao nosso vídeo institucional.</p>
+      <div class="video-wrap">
+        <iframe src="https://player.vimeo.com/video/367300979" allowfullscreen allow="autoplay; fullscreen"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIENTS -->
+  <div class="section bg-off">
+    <div class="container center">
+      <p class="eyebrow">Confiança Comprovada</p>
+      <h2 class="sec-h2">Clientes que já confiaram a nós a sua carteira</h2>
+      <div class="clients-grid">
+        <div class="client-chip">Alpha Consórcio</div>
+        <div class="client-chip">Libera Credy</div>
+        <div class="client-chip">Âncora Consórcios</div>
+        <div class="client-chip">Disal Consórcio</div>
+        <div class="client-chip">Banco do Brasil</div>
+        <div class="client-chip">Honda Consórcio</div>
+        <div class="client-chip">Yamaha</div>
+        <div class="client-chip">CAOA Consórcios</div>
+        <div class="client-chip">Consórcio Luiza</div>
+        <div class="client-chip">ABRACAF</div>
+        <div class="client-chip">Embracon</div>
+        <div class="client-chip">ABRACY</div>
+        <div class="client-chip">Caixa Seguradora</div>
+        <div class="client-chip">Maquisistema</div>
+        <div class="client-chip">CNK</div>
+        <div class="client-chip">Consórcio Viviani</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOSSAS SOLUÇÕES -->
+  <div class="section bg-white">
+    <div class="container">
+      <p class="eyebrow">O que fazemos</p>
+      <h2 class="sec-h2">Nossas Soluções</h2>
+      <p class="sec-p">Conheça as soluções da Sigma para transformar o seu negócio.</p>
+      <div class="sol-grid">
+        <div class="sol-card" onclick="go('consultoria')">
+          <div class="sol-bg-img" style="background-image:url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&q=70')"></div>
+          <div class="sol-overlay"></div>
+          <div class="sol-content">
+            <div class="sol-icon">🏛️</div>
+            <h3>Constituição de Administradoras</h3>
+            <p>Da concepção à autorização do BACEN</p>
+            <div class="sol-link">Saiba Mais →</div>
+          </div>
+        </div>
+        <div class="sol-card" onclick="go('mentoring')">
+          <div class="sol-bg-img" style="background-image:url('https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=70')"></div>
+          <div class="sol-overlay"></div>
+          <div class="sol-content">
+            <div class="sol-icon">🎯</div>
+            <h3>Mentoring Solution Consórcio</h3>
+            <p>Acompanhamento estratégico personalizado</p>
+            <div class="sol-link">Saiba Mais →</div>
+          </div>
+        </div>
+        <div class="sol-card" onclick="go('consultoria')">
+          <div class="sol-bg-img" style="background-image:url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=70')"></div>
+          <div class="sol-overlay"></div>
+          <div class="sol-content">
+            <div class="sol-icon">📊</div>
+            <h3>Planejamento Estratégico</h3>
+            <p>Visão de longo prazo para crescimento</p>
+            <div class="sol-link">Saiba Mais →</div>
+          </div>
+        </div>
+        <div class="sol-card" onclick="go('servicos')">
+          <div class="sol-bg-img" style="background-image:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=70')"></div>
+          <div class="sol-overlay"></div>
+          <div class="sol-content">
+            <div class="sol-icon">📞</div>
+            <h3>Serviços Operacionais</h3>
+            <p>Televendas, SAC, Cobrança e mais</p>
+            <div class="sol-link">Saiba Mais →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT PREVIEW -->
+  <div class="section bg-off">
+    <div class="container">
+      <div class="two-col">
+        <div class="photo-frame" style="height:400px;position:relative">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=700&q=80" alt="Equipe" style="height:400px"/>
+          <div class="badge-over">
+            <span class="bn">+20</span>
+            <div class="bs">Anos de<br/>Experiência</div>
+          </div>
+        </div>
+        <div>
+          <p class="eyebrow">Quem somos</p>
+          <h2 class="sec-h2">Experiência que gera resultados</h2>
+          <p class="sec-p">Há mais de 20 anos fornecemos soluções especializadas para o setor de consórcios no Brasil, Peru e Colômbia. Solucionamos e gerenciamos ações de relacionamento entre empresa e clientes com agilidade, eficiência e profissionalismo.</p>
+          <div style="display:flex;gap:12px;margin-top:26px;flex-wrap:wrap">
+            <button class="btn-orange" onclick="go('sobre')">Saiba Mais →</button>
+            <button class="btn-outline-dark" onclick="go('contato')">Fale Conosco</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DARK CTA -->
+  <div class="dark-cta">
+    <div style="position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1400&q=60');background-size:cover;background-position:center;opacity:.12"></div>
+    <div style="position:relative">
+      <h2>Pronto para transformar<br/>seu negócio?</h2>
+      <p>Agende uma consultoria e descubra como podemos ajudar sua administradora de consórcios a alcançar a excelência.</p>
+      <button class="btn-orange" onclick="go('contato')">Agende uma Consultoria →</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="flogo"><img src="sigma-logo.png" alt="Sigma"/></div>
+        <p>Há mais de 20 anos transformando negócios no setor de consórcios em Brasil, Peru e Colômbia.</p>
+      </div>
+      <div class="fcol"><h4>Páginas</h4><a onclick="go('consultoria')">Consultoria</a><a onclick="go('mentoring')">Mentoring</a><a onclick="go('servicos')">Serviços Operacionais</a><a onclick="go('sobre')">Sobre Nós</a><a onclick="go('contato')">Contato</a></div>
+      <div class="fcol"><h4>Contato</h4><span>📞 +55 11 3937-9900</span><span>📞 +55 11 3738-7000</span><span>✉️ contato@sigmasolucoes.com.br</span></div>
+      <div class="fcol"><h4>Endereço</h4><span>📍 Rua Oliveira Melo, 474,<br/>Ipiranga, São Paulo – SP</span></div>
+    </div>
+    <div class="footer-copy">© 2026 Sigma Soluções. Todos os direitos reservados.</div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════ CONSULTORIA ═══════════════════════════ -->
+<div class="page" id="page-consultoria">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-photo" style="background-image:url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1600&q=80');opacity:.4"></div>
+    <div class="hero-wave"><svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0,35 C480,70 960,0 1440,35 L1440,70 L0,70 Z" fill="#fff"/></svg></div>
+    <div class="hero-inner" style="padding-bottom:80px">
+      <div class="hero-tag">Consultoria</div>
+      <h1>Constituição de Administradoras de Consórcios</h1>
+      <p>Acompanhamento completo desde o projeto inicial até a autorização de funcionamento pelo BACEN.</p>
+      <button class="btn-orange" onclick="go('contato')">Fale com um Consultor →</button>
+    </div>
+  </div>
+
+  <div class="section bg-white">
+    <div class="container">
+      <div class="two-col">
+        <div class="photo-frame" style="height:360px">
+          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=700&q=80" alt="Documentos" style="height:360px"/>
+        </div>
+        <div>
+          <p class="eyebrow">Nosso Processo</p>
+          <h2 class="sec-h2">Do projeto inicial à autorização do BACEN</h2>
+          <p class="sec-p">Com mais de 20 anos de experiência, conduzimos todo o processo de constituição da sua administradora de consórcios. Desde o estudo de viabilidade até o treinamento das equipes, garantimos que cada etapa seja executada com excelência.</p>
+          <button class="btn-orange" style="margin-top:22px" onclick="go('contato')">Solicitar Proposta →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section bg-off">
+    <div class="container">
+      <p class="eyebrow">Passo a Passo</p>
+      <h2 class="sec-h2">Etapas da Constituição</h2>
+      <div class="steps-grid">
+        <div class="step-card"><div class="step-n">01</div><div class="step-icon">🔍</div><h4>Estudo de Viabilidade</h4><p>Análise de mercado, projeção financeira e modelo de negócio</p></div>
+        <div class="step-card"><div class="step-n">02</div><div class="step-icon">⚖️</div><h4>Estruturação Jurídica</h4><p>Constituição societária e adequação às normas do BACEN</p></div>
+        <div class="step-card"><div class="step-n">03</div><div class="step-icon">⚙️</div><h4>Estruturação Operacional</h4><p>Processos, sistemas, áreas comercial e operacional</p></div>
+        <div class="step-card"><div class="step-n">04</div><div class="step-icon">📣</div><h4>Estruturação Comercial</h4><p>Marketing, branding e canais de venda</p></div>
+        <div class="step-card"><div class="step-n">05</div><div class="step-icon">🛡️</div><h4>Governança Corporativa</h4><p>Políticas de compliance e gestão de riscos</p></div>
+        <div class="step-card"><div class="step-n">06</div><div class="step-icon">🎓</div><h4>Treinamento e Capacitação</h4><p>Formação de equipes e capacitação C-level</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dark-cta">
+    <div style="position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1400&q=60');background-size:cover;background-position:center;opacity:.12"></div>
+    <div style="position:relative">
+      <div style="font-size:32px;color:var(--orange);margin-bottom:10px">📊</div>
+      <h2>Planejamento Estratégico</h2>
+      <p>Desenvolvemos planejamentos estratégicos sob medida para administradoras de consórcios, com visão de longo prazo e foco em resultados sustentáveis.</p>
+      <button class="btn-orange" onclick="go('contato')">Solicitar Planejamento →</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand"><div class="flogo"><img src="sigma-logo.png" alt="Sigma"/></div><p>Há mais de 20 anos transformando negócios no setor de consórcios em Brasil, Peru e Colômbia.</p></div>
+      <div class="fcol"><h4>Páginas</h4><a onclick="go('consultoria')">Consultoria</a><a onclick="go('mentoring')">Mentoring</a><a onclick="go('servicos')">Serviços Operacionais</a><a onclick="go('sobre')">Sobre Nós</a><a onclick="go('contato')">Contato</a></div>
+      <div class="fcol"><h4>Contato</h4><span>📞 +55 11 3937-9900</span><span>📞 +55 11 3738-7000</span><span>✉️ contato@sigmasolucoes.com.br</span></div>
+      <div class="fcol"><h4>Endereço</h4><span>📍 Rua Oliveira Melo, 474,<br/>Ipiranga, São Paulo – SP</span></div>
+    </div>
+    <div class="footer-copy">© 2026 Sigma Soluções. Todos os direitos reservados.</div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════ MENTORING ═══════════════════════════ -->
+<div class="page" id="page-mentoring">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-photo" style="background-image:url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1600&q=80');opacity:.4"></div>
+    <div class="hero-wave"><svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0,35 C480,70 960,0 1440,35 L1440,70 L0,70 Z" fill="#fff"/></svg></div>
+    <div class="hero-inner" style="padding-bottom:80px">
+      <div class="hero-tag">Mentoring</div>
+      <h1>Mentoring Solution Consórcio</h1>
+      <p>Acompanhamento estratégico personalizado para administradoras em operação que buscam excelência.</p>
+      <button class="btn-orange" onclick="go('contato')">Solicitar Mentoring →</button>
+    </div>
+  </div>
+
+  <div class="section bg-white">
+    <div class="container">
+      <div class="two-col">
+        <div>
+          <p class="eyebrow">Como Funciona</p>
+          <h2 class="sec-h2">Mentoria que transforma resultados</h2>
+          <p class="sec-p">Nosso programa de mentoring é desenhado para executivos e equipes de liderança de administradoras de consórcios. Com acompanhamento personalizado, ajudamos a identificar oportunidades, superar desafios e alcançar novos patamares de performance.</p>
+          <ul class="cklist">
+            <li>Resultados mensuráveis desde o primeiro mês</li>
+            <li>Acompanhamento individualizado e contínuo</li>
+            <li>Metodologia comprovada em 3 países</li>
+            <li>Acesso a rede de contatos do setor</li>
+          </ul>
+        </div>
+        <div class="photo-frame" style="height:400px">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=700&q=80" alt="Mentoring" style="height:400px"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section bg-off">
+    <div class="container">
+      <p class="eyebrow">Áreas de Atuação</p>
+      <h2 class="sec-h2">O Que Cobrimos</h2>
+      <div class="areas-grid">
+        <div class="area-card"><div class="area-icon">👥</div><h4>Mentoria executiva para C-level</h4><p>Acompanhamento personalizado para líderes executivos</p></div>
+        <div class="area-card"><div class="area-icon">📊</div><h4>Planejamento estratégico</h4><p>Definição de metas e estratégias de crescimento</p></div>
+        <div class="area-card"><div class="area-icon">👁️</div><h4>Revisão de estratégias comerciais</h4><p>Otimização dos canais de venda e receita</p></div>
+        <div class="area-card"><div class="area-icon">⚙️</div><h4>Otimização de processos</h4><p>Melhoria contínua de processos operacionais</p></div>
+        <div class="area-card"><div class="area-icon">⚠️</div><h4>Gestão de crises</h4><p>Preparação e resposta a cenários críticos</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dark-cta">
+    <div style="position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1400&q=60');background-size:cover;background-position:center;opacity:.15"></div>
+    <div style="position:relative">
+      <h2>Eleve o nível da<br/>sua administradora</h2>
+      <p>Converse com nossos mentores e descubra como acelerar seus resultados.</p>
+      <button class="btn-orange" onclick="go('contato')">Agendar Mentoria →</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand"><div class="flogo"><img src="sigma-logo.png" alt="Sigma"/></div><p>Há mais de 20 anos transformando negócios no setor de consórcios em Brasil, Peru e Colômbia.</p></div>
+      <div class="fcol"><h4>Páginas</h4><a onclick="go('consultoria')">Consultoria</a><a onclick="go('mentoring')">Mentoring</a><a onclick="go('servicos')">Serviços Operacionais</a><a onclick="go('sobre')">Sobre Nós</a><a onclick="go('contato')">Contato</a></div>
+      <div class="fcol"><h4>Contato</h4><span>📞 +55 11 3937-9900</span><span>📞 +55 11 3738-7000</span><span>✉️ contato@sigmasolucoes.com.br</span></div>
+      <div class="fcol"><h4>Endereço</h4><span>📍 Rua Oliveira Melo, 474,<br/>Ipiranga, São Paulo – SP</span></div>
+    </div>
+    <div class="footer-copy">© 2026 Sigma Soluções. Todos os direitos reservados.</div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════ SERVIÇOS ═══════════════════════════ -->
+<div class="page" id="page-servicos">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-photo" style="background-image:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1600&q=80');opacity:.4"></div>
+    <div class="hero-wave"><svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0,35 C480,70 960,0 1440,35 L1440,70 L0,70 Z" fill="#fff"/></svg></div>
+    <div class="hero-inner" style="padding-bottom:80px">
+      <div class="hero-tag">Serviços Operacionais</div>
+      <h1>Excelência em cada ponto de contato</h1>
+      <p>Operações especializadas em consórcios com processos otimizados, equipes treinadas e resultados comprovados.</p>
+      <button class="btn-orange" onclick="go('contato')">Solicitar Proposta →</button>
+    </div>
+  </div>
+
+  <div class="section bg-white">
+    <div class="container">
+
+      <!-- 1: texto esq, foto dir -->
+      <div class="svc-row">
+        <div>
+          <div class="svc-icon-box">📞</div>
+          <h3>Televendas e Revendas de Cotas</h3>
+          <p>Operação especializada de vendas de cotas de consórcio com equipes treinadas, scripts otimizados e acompanhamento de métricas em tempo real.</p>
+          <button class="btn-link" onclick="go('contato')">Saber Mais</button>
+        </div>
+        <div class="svc-img">
+          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=700&q=80" alt="Televendas" style="height:280px"/>
+        </div>
+      </div>
+
+      <!-- 2: foto esq, texto dir -->
+      <div class="svc-row rev">
+        <div>
+          <div class="svc-icon-box">🤝</div>
+          <h3>Pós-Vendas e Boas Vindas</h3>
+          <p>Programa estruturado de acolhimento do novo consorciado, garantindo engajamento e reduzindo o índice de desistências nos primeiros meses.</p>
+          <button class="btn-link" onclick="go('contato')">Saber Mais</button>
+        </div>
+        <div class="svc-img">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=700&q=80" alt="Pós-vendas" style="height:280px"/>
+        </div>
+      </div>
+
+      <!-- 3: texto esq, foto dir -->
+      <div class="svc-row">
+        <div>
+          <div class="svc-icon-box">💬</div>
+          <h3>Cobrança Amigável</h3>
+          <p>Abordagem humanizada e eficaz na recuperação de crédito, preservando o relacionamento com o cliente e maximizando a adimplência.</p>
+          <button class="btn-link" onclick="go('contato')">Saber Mais</button>
+        </div>
+        <div class="svc-img">
+          <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=700&q=80" alt="Cobrança" style="height:280px"/>
+        </div>
+      </div>
+
+      <!-- 4: foto esq, texto dir -->
+      <div class="svc-row rev">
+        <div>
+          <div class="svc-icon-box">🎧</div>
+          <h3>SAC e Central de Relacionamento</h3>
+          <p>Atendimento multicanal com equipe capacitada, processos definidos e indicadores de qualidade para garantir a satisfação do cliente.</p>
+          <button class="btn-link" onclick="go('contato')">Saber Mais</button>
+        </div>
+        <div class="svc-img">
+          <img src="https://images.unsplash.com/photo-1560264418-c4445382edbc?w=700&q=80" alt="SAC" style="height:280px"/>
+        </div>
+      </div>
+
+      <!-- 5: texto esq, foto dir -->
+      <div class="svc-row">
+        <div>
+          <div class="svc-icon-box">🔄</div>
+          <h3>Retenção e Reativação de Clientes</h3>
+          <p>Estratégias inteligentes para manter clientes ativos e reengajar consorciados inativos, aumentando o lifetime value da carteira.</p>
+          <button class="btn-link" onclick="go('contato')">Saber Mais</button>
+        </div>
+        <div class="svc-img">
+          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=700&q=80" alt="Retenção" style="height:280px"/>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="dark-cta">
+    <div style="position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1400&q=60');background-size:cover;background-position:center;opacity:.15"></div>
+    <div style="position:relative">
+      <h2>Terceirize com quem entende</h2>
+      <p>Mais de 20 anos de expertise operacional no setor de consórcios ao seu dispor.</p>
+      <button class="btn-orange" onclick="go('contato')">Solicitar Proposta →</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand"><div class="flogo"><img src="sigma-logo.png" alt="Sigma"/></div><p>Há mais de 20 anos transformando negócios no setor de consórcios em Brasil, Peru e Colômbia.</p></div>
+      <div class="fcol"><h4>Páginas</h4><a onclick="go('consultoria')">Consultoria</a><a onclick="go('mentoring')">Mentoring</a><a onclick="go('servicos')">Serviços Operacionais</a><a onclick="go('sobre')">Sobre Nós</a><a onclick="go('contato')">Contato</a></div>
+      <div class="fcol"><h4>Contato</h4><span>📞 +55 11 3937-9900</span><span>📞 +55 11 3738-7000</span><span>✉️ contato@sigmasolucoes.com.br</span></div>
+      <div class="fcol"><h4>Endereço</h4><span>📍 Rua Oliveira Melo, 474,<br/>Ipiranga, São Paulo – SP</span></div>
+    </div>
+    <div class="footer-copy">© 2026 Sigma Soluções. Todos os direitos reservados.</div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════ SOBRE ═══════════════════════════ -->
+<div class="page" id="page-sobre">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-photo" style="background-image:url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80');opacity:.4"></div>
+    <div class="hero-wave"><svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0,35 C480,70 960,0 1440,35 L1440,70 L0,70 Z" fill="#fff"/></svg></div>
+    <div class="hero-inner" style="padding-bottom:80px">
+      <div class="hero-tag">Sobre Nós</div>
+      <h1>Há mais de 20 anos construindo o futuro do setor de consórcios</h1>
+      <p>Desde a constituição até a operação completa, somos o parceiro estratégico das administradoras de consórcios.</p>
+    </div>
+  </div>
+
+  <!-- 3 pilares -->
+  <div class="section bg-white">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:64px">
+        <div class="step-card" style="border-radius:var(--radius)">
+          <div class="step-icon">🔍</div>
+          <h4>Solucionar e gerenciar</h4>
+          <p>Ações de relacionamento entre empresa e clientes com agilidade e eficiência.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-icon">👤</div>
+          <h4>Gestores de alto desempenho</h4>
+          <p>Com vasta experiência no setor.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-icon">💻</div>
+          <h4>Tecnologia aplicada</h4>
+          <p>Usamos a tecnologia para agregar valor e eficiência ao atendimento do seu cliente.</p>
+        </div>
+      </div>
+
+      <!-- CEO section -->
+      <div class="two-col">
+        <div class="photo-frame" style="height:420px">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=700&q=80" alt="CEO" style="height:420px"/>
+        </div>
+        <div>
+          <p class="eyebrow">Nossa História</p>
+          <h2 class="sec-h2">Experiência e dedicação ao mercado</h2>
+          <p class="sec-p">Prestamos Serviços Especializados em Consórcio há mais de 20 anos. Solucionamos e gerenciamos ações de relacionamento entre empresa e clientes, com agilidade, eficiência, confiança, ética, sustentabilidade, profissionalismo e resultado.</p>
+          <div class="ceo-box">
+            <div class="ceo-name">Consuelo Paiva Martins Amorim</div>
+            <div class="ceo-role">CEO &amp; Fundadora</div>
+            <p class="ceo-bio">Atua no segmento de Crédito, Financiamento e Investimentos em Financeiras, Bancos e Administradoras de Consórcios desde 1979. Com formação acadêmica incluindo Mestrado e MBAs, exerceu o cargo de Presidente da Associação Brasileira de Administradoras de Consórcios (ABAC) e do Sindicato Nacional de Administradoras de Consórcios. Fundou a Sigma Soluções em 2004, acumulando mais de quatro décadas de experiência e liderança visionária no setor.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MISSÃO -->
+  <div class="mission">
+    <div style="position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1400&q=60');background-size:cover;background-position:center;opacity:.12"></div>
+    <div style="position:relative">
+      <p class="eyebrow">Nossa Razão de Existir</p>
+      <div class="mission-title">Missão</div>
+      <p class="mission-quote">"Preservar e fortalecer os vínculos entre empresa e clientes a partir de ações personalizadas de relacionamento que solucionem de forma ágil e eficiente as necessidades dos envolvidos."</p>
+    </div>
+  </div>
+
+  <!-- VALORES -->
+  <div class="section bg-off">
+    <div class="container center">
+      <p class="eyebrow">O Que Nos Move</p>
+      <h2 class="sec-h2">Nossos Valores</h2>
+      <div class="vals-grid" style="text-align:left;margin-top:28px">
+        <div class="val-card"><div class="val-icon">⚡</div><h4>Agilidade</h4><p>Respostas rápidas e soluções eficientes</p></div>
+        <div class="val-card"><div class="val-icon">🎯</div><h4>Eficiência</h4><p>Resultados mensuráveis e consistentes</p></div>
+        <div class="val-card"><div class="val-icon">🛡️</div><h4>Confiança</h4><p>Transparência em cada ação</p></div>
+        <div class="val-card"><div class="val-icon">⭕</div><h4>Ética</h4><p>Integridade como princípio fundamental</p></div>
+        <div class="val-card"><div class="val-icon">🌱</div><h4>Sustentabilidade</h4><p>Crescimento responsável e duradouro</p></div>
+        <div class="val-card"><div class="val-icon">🏆</div><h4>Profissionalismo</h4><p>Excelência em tudo que fazemos</p></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand"><div class="flogo"><img src="sigma-logo.png" alt="Sigma"/></div><p>Há mais de 20 anos transformando negócios no setor de consórcios em Brasil, Peru e Colômbia.</p></div>
+      <div class="fcol"><h4>Páginas</h4><a onclick="go('consultoria')">Consultoria</a><a onclick="go('mentoring')">Mentoring</a><a onclick="go('servicos')">Serviços Operacionais</a><a onclick="go('sobre')">Sobre Nós</a><a onclick="go('contato')">Contato</a></div>
+      <div class="fcol"><h4>Contato</h4><span>📞 +55 11 3937-9900</span><span>📞 +55 11 3738-7000</span><span>✉️ contato@sigmasolucoes.com.br</span></div>
+      <div class="fcol"><h4>Endereço</h4><span>📍 Rua Oliveira Melo, 474,<br/>Ipiranga, São Paulo – SP</span></div>
+    </div>
+    <div class="footer-copy">© 2026 Sigma Soluções. Todos os direitos reservados.</div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════ CONTATO ═══════════════════════════ -->
+<div class="page" id="page-contato">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-photo" style="background-image:url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600&q=80');opacity:.45"></div>
+    <div class="hero-wave"><svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0,35 C480,70 960,0 1440,35 L1440,70 L0,70 Z" fill="#f8f8f6"/></svg></div>
+    <div class="hero-inner" style="padding-bottom:80px">
+      <div class="hero-tag">Contato</div>
+      <h1>Vamos conversar sobre o seu projeto?</h1>
+      <p>Estamos prontos para ajudar a transformar o seu negócio. Entre em contato e agende uma consultoria.</p>
+    </div>
+  </div>
+
+  <div class="section bg-off">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="form-card">
+          <h3>Envie sua mensagem</h3>
+          <p class="form-sub">Preencha o formulário e retornaremos em até 24h.</p>
+          <div class="form-row">
+            <div class="fg"><input type="text" placeholder="Nome *"/></div>
+            <div class="fg"><input type="email" placeholder="E-mail *"/></div>
+          </div>
+          <div class="form-row" style="margin-bottom:12px">
+            <div class="fg"><input type="tel" placeholder="Telefone"/></div>
+            <div class="fg"><input type="text" placeholder="Assunto"/></div>
+          </div>
+          <div class="fg" style="margin-bottom:20px"><textarea placeholder="Sua mensagem *"></textarea></div>
+          <button class="btn-orange" onclick="alert('Mensagem enviada! Retornaremos em até 24h.')">Enviar Mensagem ✉️</button>
+        </div>
+        <div>
+          <div class="info-card">
+            <h3>Informações de Contato</h3>
+            <div class="info-item"><div class="info-ico">📞</div><div><h4>Telefones</h4><p>+55 11 3937-9900<br/>+55 11 3738-7000</p></div></div>
+            <div class="info-item"><div class="info-ico">✉️</div><div><h4>E-mail</h4><p>contato@sigmasolucoes.com.br</p></div></div>
+            <div class="info-item"><div class="info-ico">📍</div><div><h4>Endereço</h4><p>Rua Oliveira Melo, 474,<br/>Ipiranga, São Paulo – SP</p></div></div>
+            <div class="info-item"><div class="info-ico">🕐</div><div><h4>Horário</h4><p>Seg - Sex: 9h às 18h</p></div></div>
+          </div>
+          <div class="map-frame">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.0!2d-46.606!3d-23.580!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5a2b2ed7f3a9%3A0x0!2sRua+Oliveira+Melo%2C+474%2C+Ipiranga%2C+S%C3%A3o+Paulo+-+SP!5e0!3m2!1spt!2sbr!4v1" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand"><div class="flogo"><img src="sigma-logo.png" alt="Sigma"/></div><p>Há mais de 20 anos transformando negócios no setor de consórcios em Brasil, Peru e Colômbia.</p></div>
+      <div class="fcol"><h4>Páginas</h4><a onclick="go('consultoria')">Consultoria</a><a onclick="go('mentoring')">Mentoring</a><a onclick="go('servicos')">Serviços Operacionais</a><a onclick="go('sobre')">Sobre Nós</a><a onclick="go('contato')">Contato</a></div>
+      <div class="fcol"><h4>Contato</h4><span>📞 +55 11 3937-9900</span><span>📞 +55 11 3738-7000</span><span>✉️ contato@sigmasolucoes.com.br</span></div>
+      <div class="fcol"><h4>Endereço</h4><span>📍 Rua Oliveira Melo, 474,<br/>Ipiranga, São Paulo – SP</span></div>
+    </div>
+    <div class="footer-copy">© 2026 Sigma Soluções. Todos os direitos reservados.</div>
+  </footer>
+</div>
+
+<script>
+function go(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+  // nav highlight
+  document.querySelectorAll('.nav-links a[id^="nl-"]').forEach(a=>a.style.fontWeight='500');
+  var el=document.getElementById('nl-'+name);
+  if(el) el.style.fontWeight='700';
+}
+go('home');
+</script>
+</body>
+</html>
